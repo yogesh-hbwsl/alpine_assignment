@@ -11,7 +11,8 @@
             colors: {
               sidebar: "#F5F5F5",
               sidebarTitle: "#EFEFEF",
-              bulletColor: "#C2C2C2"
+              bulletColor: "#C2C2C2",
+              accordionBg: "#077DFA",
             },
           },
         },
@@ -23,18 +24,64 @@
     <div class="main-container flex h-screen">
       <div class="left-container w-1/5 bg-sidebar">
         <div class="title-container bg-sidebarTitle p-2">
-            <h2 class="font-bold opacity-90">Widgets</h2>
+          <h2 class="font-bold opacity-90">Widgets</h2>
         </div>
         <div class="list-items-container p-2">
-            <ul x-data="{ items: ['Accordian', 'Autocomplete', 'Button', 'Checkboxradio', 'Controlgroup', 'Datepicker', 'Dialog', 'Menu', 'Progressbar', 'Selectmenu', 'Slider', 'Spinner', 'Tabs', 'Tooltip'] }" class="list-disc list-inside marker:text-bulletColor marker:text-lg opacity-90">
-                <template x-for="item in items">
-                    <li class="p-2"><a href="" x-text="item" class="hover:underline"></a></li>
-                </template>
-            </ul>
+          <ul
+            x-data="{ items: ['Accordian', 'Autocomplete', 'Button', 'Checkboxradio', 'Controlgroup', 'Datepicker', 'Dialog', 'Menu', 'Progressbar', 'Selectmenu', 'Slider', 'Spinner', 'Tabs', 'Tooltip'] }"
+            class="list-disc list-inside marker:text-bulletColor marker:text-lg opacity-90"
+          >
+            <template x-for="item in items">
+              <li class="p-2">
+                <a href="" x-text="item" class="hover:underline"></a>
+              </li>
+            </template>
+          </ul>
         </div>
       </div>
-      <div class="right-container w-4/5">
+      <div class="right-container w-4/5 p-5">
+        <div
+          class="widget-accordian w-full border-2 p-2"
+          x-data="{ items: [
+                {title: 'Section 1', open: false, icon: '&#x25B8;'},
+                {title: 'Section 2', open: false, icon: '&#x25B8;'},
+                {title: 'Section 3', open: false, icon: '&#x25B8;'},
+                {title: 'Section 4', open: false, icon: '&#x25B8;'},
+                {title: 'Section 5', open: false, icon: '&#x25B8;'}
+            ] }"
+        >
         
+          <!-- Accordians -->
+          <template x-for="item in items">
+            <div
+              class="accordian-item border-2 rounded hover:cursor-pointer mb-1"
+              x-on:click="item.open=!item.open; item.icon=='&#x25BE;' ? item.icon='&#x25B8;' : item.icon='&#x25BE;'"
+            >
+              <div
+                class="accordion-title p-2"
+                :class="item.open && 'text-white bg-accordionBg'"
+              >
+                <span x-text="item.icon"></span>
+                <span x-text="item.title"></span>
+              </div>
+              <div
+                class="accordion-body p-5"
+                x-show="item.open"
+                x-transition.duration.500ms
+              >
+                <p class="text-justify">
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget,
+                  quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+                  gravida in, condimentum sit amet, nunc. Nam a nibh. Donec
+                  suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur
+                  malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                </p>
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="widget-autocomplete hidden">Autocomplete</div>
+      </div>
     </div>
   </body>
 </html>
