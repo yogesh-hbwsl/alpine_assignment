@@ -4,8 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              sidebar: "#F5F5F5",
+              sidebarTitle: "#EFEFEF",
+              bulletColor: "#C2C2C2"
+            },
+          },
+        },
+      };
+    </script>
     <script src="https://unpkg.com/alpinejs" defer></script>
   </head>
   <body>
+    <div class="main-container flex h-screen">
+      <div class="left-container w-1/5 bg-sidebar">
+        <div class="title-container bg-sidebarTitle p-2">
+            <h2 class="font-bold opacity-90">Widgets</h2>
+        </div>
+        <div class="list-items-container p-2">
+            <ul x-data="{ items: ['Accordian', 'Autocomplete', 'Button', 'Checkboxradio', 'Controlgroup', 'Datepicker', 'Dialog', 'Menu', 'Progressbar', 'Selectmenu', 'Slider', 'Spinner', 'Tabs', 'Tooltip'] }" class="list-disc list-inside marker:text-bulletColor marker:text-lg opacity-90">
+                <template x-for="item in items">
+                    <li class="p-2"><a href="" x-text="item" class="hover:underline"></a></li>
+                </template>
+            </ul>
+        </div>
+      </div>
+      <div class="right-container w-4/5">
+        
+    </div>
   </body>
 </html>
