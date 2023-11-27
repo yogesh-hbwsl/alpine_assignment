@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -28,19 +29,38 @@
         </div>
         <div class="list-items-container p-2">
           <ul
-            x-data="{ items: ['Accordian', 'Autocomplete', 'Button', 'Checkboxradio', 'Controlgroup', 'Datepicker', 'Dialog', 'Menu', 'Progressbar', 'Selectmenu', 'Slider', 'Spinner', 'Tabs', 'Tooltip'] }"
+            x-data="{ items: ['Accordion', 'Autocomplete', 'Button', 'Checkboxradio', 'Controlgroup', 'Datepicker', 'Dialog', 'Menu', 'Progressbar', 'Selectmenu', 'Slider', 'Spinner', 'Tabs', 'Tooltip'],
+            switchWidget(e){
+                e.preventDefault()
+                let listItemId = e.target.getAttribute('id');
+                $('.right-container > div').each(function () {
+                  if($(this).attr('id')!=listItemId){
+                    $(this).addClass('hidden')
+                  }else{
+                    $(this).removeClass('hidden')
+                  }
+                });
+            } }"
             class="list-disc list-inside marker:text-bulletColor marker:text-lg opacity-90"
           >
             <template x-for="item in items">
               <li class="p-2">
-                <a href="" x-text="item" class="hover:underline"></a>
+                <a
+                  href=""
+                  x-text="item"
+                  class="hover:underline"
+                  x-on:click="switchWidget(event)"
+                  :id="item.toLowerCase()"
+                ></a>
               </li>
             </template>
           </ul>
         </div>
       </div>
       <div class="right-container w-4/5 p-5">
+        <!-- Widget #1 Accordion -->
         <div
+          id="accordion"
           class="widget-accordian w-full border-2 p-2"
           x-data="{ items: [
                 {title: 'Section 1', open: false, icon: '&#x25B8;'},
@@ -50,7 +70,6 @@
                 {title: 'Section 5', open: false, icon: '&#x25B8;'}
             ] }"
         >
-        
           <!-- Accordians -->
           <template x-for="item in items">
             <div
@@ -80,7 +99,11 @@
             </div>
           </template>
         </div>
-        <div class="widget-autocomplete hidden">Autocomplete</div>
+
+        <!-- Widget #2 Autocomplete -->
+        <div id="autocomplete" class="widget-autocomplete hidden">
+          Autocomplete
+        </div>
       </div>
     </div>
   </body>
