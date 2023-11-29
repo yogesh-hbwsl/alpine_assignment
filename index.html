@@ -13,13 +13,23 @@
               sidebar: "#F5F5F5",
               sidebarTitle: "#EFEFEF",
               bulletColor: "#C2C2C2",
-              accordionBg: "#077DFA",
+              accordionBg: "#077DFA"
             },
           },
         },
       };
     </script>
     <script src="https://unpkg.com/alpinejs" defer></script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .widget-btn {
+          @apply rounded border-2 border-gray-200 px-2 py-1 bg-gray-100 opacity-90 text-sm active:widget-btn-active;
+        }
+        .widget-btn-active{
+          @apply bg-blue-500 text-white border-blue-500
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="main-container flex h-screen">
@@ -101,7 +111,7 @@
         </div>
 
         <!-- Widget #2 Autocomplete -->
-        <div id="autocomplete" class="widget-autocomplete">
+        <div id="autocomplete" class="widget-autocomplete hidden">
           <div class="flex">
             <label for="tags" class="mr-2">Tags:</label>
             <div
@@ -157,6 +167,16 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Widget #3 Autocomplete -->
+        <div id="button" class="widget-button">
+          <h1 class="text-4xl font-bold mb-2">Widget Buttons</h1>
+          <button class="widget-btn">A button element</button>
+         
+          <input type="submit" value="A submit button" class="widget-btn cursor-pointer">
+         
+          <a href="#" class="widget-btn inline-block text-center">An anchor</a>
         </div>
       </div>
     </div>
