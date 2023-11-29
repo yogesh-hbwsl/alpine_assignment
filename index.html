@@ -61,7 +61,7 @@
         <!-- Widget #1 Accordion -->
         <div
           id="accordion"
-          class="widget-accordian w-full border-2 p-2"
+          class="widget-accordian w-full border-2 p-2 hidden"
           x-data="{ items: [
                 {title: 'Section 1', open: false, icon: '&#x25B8;'},
                 {title: 'Section 2', open: false, icon: '&#x25B8;'},
@@ -101,8 +101,62 @@
         </div>
 
         <!-- Widget #2 Autocomplete -->
-        <div id="autocomplete" class="widget-autocomplete hidden">
-          Autocomplete
+        <div id="autocomplete" class="widget-autocomplete">
+          <div class="flex">
+            <label for="tags" class="mr-2">Tags:</label>
+            <div
+              class="input-container"
+              x-data='{
+                tag: "",
+                availableTags: [
+              "ActionScript",
+              "AppleScript",
+              "Asp",
+              "BASIC",
+              "C",
+              "C++",
+              "Clojure",
+              "COBOL",
+              "ColdFusion",
+              "Erlang",
+              "Fortran",
+              "Groovy",
+              "Haskell",
+              "Java",
+              "JavaScript",
+              "Lisp",
+              "Perl",
+              "PHP",
+              "Python",
+              "Ruby",
+              "Scala",
+              "Scheme"
+              ],
+              shownTags: [],
+              open: false,
+                handleOnChange(){
+                  if(this.tag!=""){
+                    this.open=true
+                    let tags = this.availableTags.filter((tag)=>{
+                      return tag.toLowerCase().includes(this.tag.toLowerCase())
+                    })
+                    this.shownTags = [...tags];
+                  }else{
+                    this.open=false
+                  }
+                }
+            }'
+            >
+              <input type="text" class="border-2" x-on:input.change="handleOnChange()" x-model="tag" />
+              <div class="suggestion-container">
+                <ul class="list-none border-b-2 border-x-2" x-show="open">
+                  <template x-for="tag in shownTags">
+                    <li x-text="tag" class="p-1 hover:text-white hover:bg-blue-600 hover:cursor-pointer"></li>
+                  </template>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
